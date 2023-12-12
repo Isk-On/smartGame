@@ -1,0 +1,84 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: darkslategray;
+}
+
+.shoots {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+
+  font-size: 20px;
+
+  color: aqua;
+}
+
+.healthBarBack {
+  width: 200px;
+  height: 20px;
+
+  background-color: brown;
+
+  position: absolute;
+}
+
+.healthBar {
+  width: 200px;
+  height: 20px;
+
+  background-color: red;
+
+  position: absolute;
+}
+
+.target {
+  width: 200px;
+  height: 200px;
+
+  position: absolute;
+
+  background-color: blue;
+
+  top: 200px;
+  right: 200px;
+}
+
+.gun {
+  width: 20px;
+  height: 5px;
+
+  position: absolute;
+
+  background-color: white;
+}
+
+.circle {
+  width: 20px;
+  height: 20px;
+
+  border-radius: 50%;
+
+  background-color: white;
+}
+
+.pick {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  position: absolute;
+
+  width: 30px;
+  height: 30px;
+
+  border-radius: 50%;
+
+  opacity: 0.3;
+
+  background-color: antiquewhite;
+}
