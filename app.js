@@ -1,54 +1,89 @@
 const pick = document.querySelector(".pick");
+const picksAlignDiv = document.querySelector(".picksAlignDiv");
 const target = document.querySelector(".target");
-const shootsValue = document.querySelector(".shoots");
 const healthBar = document.querySelector(".healthBar");
-let health = 200
+const infoValue = document.querySelector(".info");
+const scoreValue = document.querySelector(".score");
+const healthBarBack = document.querySelector(".healthBarBack");
+const healthBeginValueFromCss =
+  (parseFloat(window.getComputedStyle(healthBar).getPropertyValue("width")) /
+    window.innerWidth) *
+  100;
+let health = healthBeginValueFromCss;
+let scoreValueNumber = 1;
+
+scoreValue.textContent = "Your score: " + scoreValueNumber;
 
 addEventListener("mousemove", function (e) {
-  pick.style.top = e.clientY - 10 + "px";
-  pick.style.left = e.clientX - 10 + "px";
+  picksAlignDiv.style.top = e.clientY + "px";
+  picksAlignDiv.style.left = e.clientX + "px";
+
+  picksAlignDiv.appendChild(pick)
 });
 
 addEventListener("mousedown", function (e) {
   const gun = document.createElement("div");
   gun.classList.add("gun");
   gun.style.top = e.clientY + "px";
-  let posY = e.clientY;
+  gun.style.left = e.clientX + "px";
+  gun.textContent = "error";
   document.body.appendChild(gun);
 
+  let posY = e.clientY;
   let posX = e.clientX;
+  let isGunRemoved = false;
 
   setInterval(function () {
-    posX += 5;
-    gun.style.left = posX + "px";
+    if (!isGunRemoved) {
+      const targetsCords = target.getBoundingClientRect();
 
-    const targetsCords = target.getBoundingClientRect();
+      posX += 5;
+      gun.style.left = posX + "px";
 
-    if (
-      posX >= targetsCords.x &&
-      posX <= targetsCords.x + targetsCords.width &&
-      posY >= targetsCords.y &&
-      posY <= targetsCords.y + targetsCords.height
-    ) {
-      shootsValue.textContent = targetsCords.x + " " + targetsCords.y;
+      if (
+        posX >= targetsCords.x &&
+        posX <= targetsCords.x + targetsCords.width &&
+        posY >= targetsCords.y &&
+        posY <= targetsCords.y + targetsCords.height
+      ) {
+        gun.remove();
+        scoreValueNumber = scoreValueNumber + 1;
+        scoreValue.textContent = "Your score: " + scoreValueNumber;
 
-      gun.remove();
-      posX = 0;
-      posY = 0;
-      health -= 80
-      healthBar.style.width = health + 'px'
-      if (health <= 0) {
-        health = 200
-        const randoNum =
-        Math.floor(Math.random() * (window.innerHeight - 200 - 0 + 1)) + 0;
-        target.style.top = randoNum + "px";
-        healthBar.style.width = health + 'px'
+        posX = 0;
+        posY = 0;
+        health = (health == healthBeginValueFromCss) ? health / 2 : (healthBeginValueFromCss / 2 == health ? health / health : health - health);
+        healthBar.style.width = health + "vw";
+        isGunRemoved = true;
+
+        if (health <= 0) {
+          health = healthBeginValueFromCss;
+          const randoNum =
+            Math.floor(Math.random() * (window.innerHeight - window.innerWidth / 6 - 30 + 1)) +
+            30;
+          target.style.top = randoNum + "px";
+          healthBar.style.width = health + "vw";
         }
+      }
 
-    }
-
-    if (posX >= window.innerWidth) {
-      gun.remove();
+      if (posX >= window.innerWidth - 40) {
+        gun.remove();
+        isGunRemoved = true;
+        scoreValueNumber = scoreValueNumber - 1;
+        scoreValue.textContent = "Your score: " + scoreValueNumber;
+      }
+      infoValue.textContent =
+        targetsCords.x +
+        " " +
+        targetsCords.y +
+        " Y: " +
+        window.innerHeight +
+        " X: " +
+        window.innerWidth +
+        " " +
+        (!isGunRemoved ? " летит " : " не летит ") +
+        " posX: " +
+        posX;
     }
   }, 1);
 });

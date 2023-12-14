@@ -6,21 +6,34 @@
 
 body {
   background-color: darkslategray;
+
+  cursor: none;
 }
 
-.shoots {
-  position: absolute;
-  top: 10px;
-  left: 10px;
+.textStyles {
+  user-select: none;
 
-  font-size: 20px;
-
+  font-size: 100%;
   color: aqua;
 }
 
+.info {
+  position: absolute;
+  top: 5vh;
+  left: 10px;
+}
+
+.score {
+  position: absolute;
+  bottom: 10vh;
+  right: 10px;
+}
+
 .healthBarBack {
-  width: 200px;
-  height: 20px;
+  width: 15vw;
+  height: 2vh;
+
+  top: -30px;
 
   background-color: brown;
 
@@ -28,8 +41,10 @@ body {
 }
 
 .healthBar {
-  width: 200px;
-  height: 20px;
+  width: 15vw;
+  height: 2vh;
+
+  top: -30px;
 
   background-color: red;
 
@@ -37,33 +52,41 @@ body {
 }
 
 .target {
-  width: 200px;
-  height: 200px;
+  width: 15vw;
+  height: 15vw;
 
   position: absolute;
 
-  background-color: blue;
+  /* background-color: blue; */
 
-  top: 200px;
-  right: 200px;
+  top: 40vh;
+  left: 60vw;
+}
+
+img {
+  user-select: none;
+
+  pointer-events: none;
+}
+
+.LogoStyles {
+  width: 100%;
+  height: 100%;
 }
 
 .gun {
+  display: flex;
+  align-items: center;
+  justify-self: center;
+
+  user-select: none;
+
   width: 20px;
   height: 5px;
 
   position: absolute;
 
-  background-color: white;
-}
-
-.circle {
-  width: 20px;
-  height: 20px;
-
-  border-radius: 50%;
-
-  background-color: white;
+  color: red;
 }
 
 .pick {
@@ -73,12 +96,19 @@ body {
 
   position: absolute;
 
-  width: 30px;
-  height: 30px;
+  width: 5vw;
+  height: 5vw;
 
   border-radius: 50%;
+}
 
-  opacity: 0.3;
+.picksAlignDiv {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-  background-color: antiquewhite;
+  position: absolute;
+
+  width: 1px;
+  height: 1px;
 }
